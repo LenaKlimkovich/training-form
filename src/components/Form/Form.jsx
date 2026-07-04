@@ -1,12 +1,21 @@
-import { useState } from "react";
-import Tracker from "../Tracker/Tracker";
+import { useState, useEffect } from "react";
 
-export default function Form ({onAdd}) {
+export default function Form ({onAdd, editingItem}) {
    const [form, setForm] = useState({
     date: "",
     distance: ""
   });
 
+  useEffect(() => {
+    if (editingItem) {
+      setForm({
+        date: editingItem.date,
+        distance: editingItem.distance.toString()
+      });
+    } else {
+      setForm({ date: '', distance: '' });
+    }
+  }, [editingItem]); // Срабатывает каждый раз при смене editingItem
 
  const handleChange = (e) => {
     const { name, value } = e.target;

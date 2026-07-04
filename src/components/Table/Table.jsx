@@ -1,4 +1,4 @@
-export default function Table({ items, onDelete }) {
+export default function Table({ items, onDelete, onEdit }) {
   const sorted = [...items].sort((a, b) => new Date(b.date) - new Date(a.date));
   return (
     <div className="data-table">
@@ -15,7 +15,7 @@ export default function Table({ items, onDelete }) {
                 <div className="col-date">{item.date}</div>
                 <div className="col-distance">{item.distance}</div>
                 <div className="col-actions">
-                    <button className="action-btn edit-btn" title="Редактировать">✎</button>
+                    <button className="action-btn edit-btn" onClick={() => onEdit(item.id)}  title="Редактировать">✎</button>
                     <button className="action-btn delete-btn" onClick={() => onDelete(item.id)}  title="Удалить">✕</button>
                 </div>
             </div>)
