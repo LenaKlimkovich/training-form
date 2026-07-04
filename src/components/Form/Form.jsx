@@ -1,58 +1,63 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function Form ({onAdd, editingItem}) {
-   const [form, setForm] = useState({
-    date: "",
-    distance: ""
+export default function Form({ onAdd, editingItem }) {
+  const [form, setForm] = useState({
+    date: editingItem?.date || "",
+    distance: editingItem?.distance || "",
   });
 
-  useEffect(() => {
-    if (editingItem) {
-      setForm({
-        date: editingItem.date,
-        distance: editingItem.distance.toString()
-      });
-    } else {
-      setForm({ date: '', distance: '' });
-    }
-  }, [editingItem]); // Срабатывает каждый раз при смене editingItem
-
- const handleChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onAdd(form);
-     setForm({ date: "", distance: "" });
+    setForm({ date: "", distance: "" });
   };
 
   return (
     <div className="container">
-      <div className="form-container"> 
+      <div className="form-container">
         <form id="trainingForm" onSubmit={handleSubmit}>
-            <div className="form-row">
-                <div className="form-group">
-                    <label htmlFor="date">Дата (ДД.ММ.ГГ)</label>
-                    <input type="text" id="date" name="date" placeholder="20.07.2019" required
-                      value={form.date}
-          onChange={handleChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="distance">Пройдено км</label>
-                    <input type="number" id="distance" name="distance" placeholder="5.7" step="0.1" min="0" required
-                      value={form.distance}
-          onChange={handleChange}/>
-                </div>
-
-                <button type="submit" className="submit-btn">OK</button>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="date">Дата (ДД.ММ.ГГ)</label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                placeholder="20.07.2019"
+                required
+                value={form.date}
+                onChange={handleChange}
+              />
             </div>
-      </form>
+
+            <div className="form-group">
+              <label htmlFor="distance">Пройдено км</label>
+              <input
+                type="number"
+                id="distance"
+                name="distance"
+                placeholder="5.7"
+                step="0.1"
+                min="0"
+                required
+                value={form.distance}
+                onChange={handleChange}
+              />
+            </div>
+
+            <button type="submit" className="submit-btn">
+              OK
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

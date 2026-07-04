@@ -1,11 +1,8 @@
-import "./style.css"; 
+import "./style.css";
 import Tracker from "./components/Tracker/Tracker";
 
 function App() {
-  return (
-    <Tracker/>
-  );
+  return <Tracker />;
 }
 
 export default App;
-
